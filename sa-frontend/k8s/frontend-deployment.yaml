@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sa-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sa-frontend
+  template:
+    metadata:
+      labels:
+        app: sa-frontend
+    spec:
+      containers:
+      - name: sa-frontend-container
+        image: aboubakarmohamed/sa-frontend:1.0
+        ports:
+        - containerPort: 80
+        # Si ton frontend a besoin d'une variable d'env pour le backend,
+        # tu peux la définir ici. Mais souvent, c'est "build-time" dans React.

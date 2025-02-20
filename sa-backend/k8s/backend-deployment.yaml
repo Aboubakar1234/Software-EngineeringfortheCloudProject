@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sa-backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sa-backend
+  template:
+    metadata:
+      labels:
+        app: sa-backend
+    spec:
+      containers:
+        - name: sa-backend-container
+          image: aboubakarmohamed/sa-backend:1.0
+          # Variables d'environnement : URL JDBC pointant vers ta DB locale
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mariadb://host.docker.internal:3305/SA
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: root
+          ports:
+            - containerPort: 8080
